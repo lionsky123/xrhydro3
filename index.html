@@ -17,17 +17,31 @@
         color: #bdc3c7;
       }
 
-      .credit{
-        position: absolute;
-        text-align: center;
-        width: 100%;
-        padding: 20px 0;
-        color: #fff;
-      }
+      /*Position von Buttons*/
+			.credit {
+			  position: absolute;
+			  text-align: left;
+			}
+
+      /*Icon-Stil von ios-Gyroskop Button*/
+			#accelPermsButton{
+				background-image: url("gyroscope.png");
+				background-size: 100%;
+				border-style: none;
+				width: 30px;
+				height: 30px;
+				background-color: Transparent;
+			}
     </style>
   </head>
 
   <body>
+
+    <!--Button erstellen-->
+		<div class="credit">
+			<!--ios-Gyroskops-->
+			<button id="accelPermsButton" onclick="getAccel()" title="Aktivieren des ios-Gyroskops"></button>
+		</div>
 
     <script src="js/three/three.min.js"></script>
     <script src="js/panolens/panolens.min.js"></script>
@@ -54,6 +68,17 @@
 
       // Enable cardboard mode
       viewer.enableEffect( PANOLENS.MODES.CARDBOARD );
+
+      //Funktion für ios Gyroskop aktiviert Button
+			function getAccel(){
+        DeviceMotionEvent.requestPermission().then(response => {
+            if (response == 'granted') {
+                window.addEventListener('devicemotion', (event) => {
+                    console.log(event);
+                });
+            }
+        });
+      }
 
     </script>
 
